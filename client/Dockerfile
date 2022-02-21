@@ -7,4 +7,4 @@ RUN apk add git \
 WORKDIR ./FullStackApp_v2/client
 RUN yarn next:build
 CMD yarn next:start:prod
-EXPOSE 3000
+EXPOSE 8000

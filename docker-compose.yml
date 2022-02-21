@@ -45,7 +45,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - "6000:6000"
+      - "3000:3000"
 
   client:
     build:
@@ -59,7 +59,7 @@ services:
     depends_on:
       - server
     ports:
-      - "3000:3000"
+      - "8000:8000"
 
   nginx:
     image: nginx:1.17.1-alpine
@@ -67,7 +67,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "8000:8000"
+      - "9000:9000"
     links:
       - client
       - server

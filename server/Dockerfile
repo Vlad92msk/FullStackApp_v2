@@ -7,4 +7,4 @@ RUN apk add git \
 WORKDIR ./FullStackApp_v2/server
 RUN yarn build
 CMD ["node", "dist/main.js"]
-EXPOSE 6000
+EXPOSE 3000
