@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.enableCors();
   await app.listen(process.env.PORT, process.env.HOST)
-  console.log(`Проект запущен по адресу - http://${process.env.HOST}:${process.env.PORT}/`)
+  console.log(`Проект запущен по адресу - http://${process.env.HOST}:${process.env.PORT}/graphql`)
 }
 
 bootstrap()

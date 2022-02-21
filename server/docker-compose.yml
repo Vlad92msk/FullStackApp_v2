@@ -3,37 +3,34 @@ services:
   postgres:
     image: postgres:14-alpine
     container_name: postgres
+    volumes:
+      - ./database:/var/lib/postgresql/data
     env_file:
       - .env.prod
-    ports:
-      - ${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}
-    volumes:
-      - ../database:/var/lib/postgresql/data
     environment:
       PGDATA: /var/lib/postgresql/data
-      POSTGRES_USER: ${POSTGRES_DB_USERNAME}
-      POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      POSTGRES_USER: vlad
+      POSTGRES_PASSWORD: password
     restart: always
+    ports:
+      - "5432:5432"
 
   server:
     build:
       context: .
       dockerfile: Dockerfile
     container_name: server
-    env_file:
-      - .env.prod
     restart: always
     environment:
-      HOST: ${HOST}
-      PORT: ${PORT}
+      HOST: localhost
+      PORT: 6000
       POSTGRES_DB_HOST: postgres
-      POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
-      POSTGRES_DB_USERNAME: ${POSTGRES_DB_USERNAME}
-      POSTGRES_DB_PASSWORD: ${POSTGRES_DB_PASSWORD}
+      POSTGRES_DB_PORT: 5432
+      POSTGRES_DB_USERNAME: vlad
+      POSTGRES_DB_PASSWORD: password
     links:
       - postgres
     depends_on:
       - postgres
     ports:
-      - ${PORT}:${PORT}
-
+      - "6000:6000"
