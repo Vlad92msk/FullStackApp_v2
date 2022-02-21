@@ -59,7 +59,7 @@ services:
     depends_on:
       - server
     ports:
-      - "8000:8000"
+      - "7000:7000"
 
   nginx:
     image: nginx:1.17.1-alpine

@@ -10,7 +10,7 @@ async function bootstrap() {
   app.use(cookieParser());
   app.enableCors();
   await app.listen(3000, 'localhost')
-  console.log(`Проект запущен по адресу - http://localhost:3000/graphql`)
+  console.log(`Сервер доступен - http://localhost:3000/graphql`)
 }
 
 bootstrap()
