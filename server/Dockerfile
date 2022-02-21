@@ -6,5 +6,5 @@ RUN apk add git \
 
 WORKDIR ./FullStackApp_v2/server
 RUN yarn build
-CMD ["node", "dist/main.js"]
+CMD yarn start:prod
 EXPOSE 3000
