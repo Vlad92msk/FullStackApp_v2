@@ -3,21 +3,25 @@ services:
   postgres:
     image: postgres:14-alpine
     container_name: postgres
+    env_file:
+      - .env.prod
+    ports:
+      - ${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}
     volumes:
-      - ./database:/var/lib/postgresql/data
+      - ../database:/var/lib/postgresql/data
     environment:
       PGDATA: /var/lib/postgresql/data
       POSTGRES_USER: ${POSTGRES_DB_USERNAME}
       POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
     restart: always
-    ports:
-      - "5432:5432"
 
   server:
     build:
       context: .
-      dockerfile: ./server/Dockerfile
+      dockerfile: Dockerfile
     container_name: server
+    env_file:
+      - .env.prod
     restart: always
     environment:
       HOST: ${HOST}
@@ -31,18 +35,5 @@ services:
     depends_on:
       - postgres
     ports:
-      - "6000:6000"
+      - ${PORT}:${PORT}
 
-  client:
-    build:
-      context: .
-      dockerfile: ./client/Dockerfile
-    container_name: client
-    restart: always
-    environment:
-      HOST: ${HOST}
-      PORT: ${PORT}
-    depends_on:
-      - server
-    ports:
-      - "3000:3000"
