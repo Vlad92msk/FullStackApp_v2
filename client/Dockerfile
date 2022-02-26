@@ -1,9 +1,9 @@
-FROM node:16.13.0-alpine
+FROM alpine
 RUN apk add git \
     && apk add yarn \
     && git clone https://github.com/Vlad92msk/FullStackApp_v2.git \
     && cd ./FullStackApp_v2/client \
-    && yarn install --prod \
+    && yarn \
     && yarn next:build
 
 WORKDIR ./FullStackApp_v2/client
