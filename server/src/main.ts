@@ -12,8 +12,8 @@ async function bootstrap() {
   app.enableCors()
 
   const config = await app.get(ConfigService)
-  const port = +config.get<number>('main.port') || 4000
-  const host = config.get<string>('main.host') || 'localhost'
+  const port = 4000
+  const host = 'localhost'
 
   await app.listen(port, () => {
     console.log(`Сервер доступен - http://${host}:${port}/graphql`)
