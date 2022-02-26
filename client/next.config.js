@@ -12,7 +12,7 @@ module.exports = {
     return config
   },
   env: {
-    HOST: process.env.HOST,
-    PORT: process.env.PORT,
+    HOST: process.env.CLIENT_HOST,
+    PORT: process.env.SERVER_PORT,
   },
 }

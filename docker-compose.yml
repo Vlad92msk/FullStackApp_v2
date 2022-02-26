@@ -11,7 +11,7 @@ services:
       POSTGRES_PASSWORD: ${POSTGRES_DB_PASSWORD}
     restart: always
     ports:
-      - "5432:5432"
+      - ${POSTGRES_DB_PORT}:${POSTGRES_DB_PORT}
 
   pgadmin:
     image: dpage/pgadmin4
@@ -20,12 +20,12 @@ services:
     volumes:
       - ./pgadmin:/var/lib/pgadmin
     environment:
-      PGADMIN_DEFAULT_EMAIL: root@root.com
-      PGADMIN_DEFAULT_PASSWORD: root
+      PGADMIN_DEFAULT_EMAIL: ${PG_ADMIN_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PG_ADMIN_PASSWORD}
     depends_on:
       - postgres
     ports:
-      - "5050:80"
+      - ${PGADMIN_PORT}:${PGADMIN_PORT}
 
   server:
     build:
@@ -34,8 +34,8 @@ services:
     container_name: server
     restart: always
     environment:
-      HOST: ${HOST}
-      PORT: ${PORT}
+      HOST: ${CLIENT_HOST}
+      PORT: ${SERVER_PORT}
       POSTGRES_DB_HOST: postgres
       POSTGRES_DB_PORT: ${POSTGRES_DB_PORT}
       POSTGRES_DB_USERNAME: ${POSTGRES_DB_USERNAME}
@@ -45,7 +45,7 @@ services:
     depends_on:
       - postgres
     ports:
-      - "3000:3000"
+      - ${SERVER_PORT}:${SERVER_PORT}
 
   client:
     build:
@@ -54,12 +54,12 @@ services:
     container_name: client
     restart: always
     environment:
-      HOST: ${HOST}
-      PORT: ${PORT}
+      HOST: ${CLIENT_HOST}
+      PORT: ${CLIENT_PORT}
     depends_on:
       - server
     ports:
-      - "7000:7000"
+      - ${CLIENT_PORT}:${CLIENT_PORT}
 
   nginx:
     image: nginx:1.17.1-alpine
@@ -67,7 +67,7 @@ services:
     volumes:
       - ./nginx.conf:/etc/nginx/conf.d/default.conf
     ports:
-      - "9000:9000"
+      - ${NGINX_PORT}:${NGINX_PORT}
     links:
       - client
       - server
