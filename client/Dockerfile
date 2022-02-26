@@ -2,7 +2,7 @@ FROM node:16.13.0-alpine
 RUN apk add git \
     && git clone https://github.com/Vlad92msk/FullStackApp_v2.git \
     && cd ./FullStackApp_v2/client \
-    && yarn --prod \
+    && yarn install --production \
     && yarn next:build
 
 WORKDIR ./FullStackApp_v2/client
