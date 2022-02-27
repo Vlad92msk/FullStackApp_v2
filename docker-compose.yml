@@ -1,4 +1,4 @@
-version: "3"
+version: "3.8"
 services:
   postgres:
     image: postgres:14-alpine
@@ -33,6 +33,8 @@ services:
       dockerfile: ./server/Dockerfile
     container_name: server
     restart: always
+    env_file:
+      - .env.prod
     environment:
       HOST: ${CLIENT_HOST}
       PORT: ${SERVER_PORT}
@@ -53,6 +55,8 @@ services:
       dockerfile: ./client/Dockerfile
     container_name: client
     restart: always
+    env_file:
+      - .env.prod
     environment:
       HOST: ${CLIENT_HOST}
       PORT: ${CLIENT_PORT}
