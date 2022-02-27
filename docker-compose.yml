@@ -58,6 +58,8 @@ services:
       PORT: ${CLIENT_PORT}
     depends_on:
       - server
+    links:
+      - server
     ports:
       - ${CLIENT_PORT}:${CLIENT_PORT}
 

@@ -11,7 +11,7 @@ export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
-const uri = `http://${process.env.HOST}:${process.env.PORT}/graphql`
+const uri = `http://localhost:3000/graphql`
 console.log('uri', uri)
 
 const createApolloClient = (userLanguage: string) => new ApolloClient({
