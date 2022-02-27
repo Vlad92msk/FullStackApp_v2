@@ -15,10 +15,10 @@ const Home: NextPage = () => {
   )
 }
 
-export const getServerSideProps: GetServerSideProps = (ctx) => getSSR(ctx, async (apolloClient) => {
-  const skills = await apolloClient.query<FindAllSkillsQuery>({ query: FindAllSkillsDocument })
-  return ssrResult(apolloClient, { skills })
-})
+// export const getServerSideProps: GetServerSideProps = (ctx) => getSSR(ctx, async (apolloClient) => {
+//   const skills = await apolloClient.query<FindAllSkillsQuery>({ query: FindAllSkillsDocument })
+//   return ssrResult(apolloClient, { skills })
+// })
 
 
 export default Home
