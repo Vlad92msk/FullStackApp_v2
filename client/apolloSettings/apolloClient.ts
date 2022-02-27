@@ -11,25 +11,25 @@ export const APOLLO_STATE_PROP_NAME = '__APOLLO_STATE__'
 
 let apolloClient: ApolloClient<NormalizedCacheObject>
 
-const createApolloClient = (lang: string) => new ApolloClient({
-    ssrMode: typeof window === 'undefined',
-    link: new HttpLink({
-      uri: `http://localhost:3000/graphql`,
-      // credentials: 'same-origin',
-      headers: {
-        userLanguage: lang
-      }
-    }),
-    cache: new InMemoryCache({
-      typePolicies: {
-        Query: {
-          fields: {
-            allPosts: concatPagination()
-          }
+const uri = `http://${process.env.HOST}:${process.env.PORT}/graphql`
+console.log('uri', uri)
+
+const createApolloClient = (userLanguage: string) => new ApolloClient({
+  ssrMode: typeof window === 'undefined',
+  link: new HttpLink({
+    headers: { userLanguage },
+    uri
+  }),
+  cache: new InMemoryCache({
+    typePolicies: {
+      Query: {
+        fields: {
+          allPosts: concatPagination()
         }
       }
-    })
+    }
   })
+})
 
 
 export const initializeApollo = (lang: string, initialState = null) => {
